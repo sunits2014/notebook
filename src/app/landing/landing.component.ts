@@ -56,6 +56,7 @@ export class LandingComponent implements OnInit {
       responseObj.title = 'Alert';
       responseObj.message = 'You have been signed out successfully.'
       this.utilities.showBasicSnackBar(responseObj, 'success-in-snackBar');
+      localStorage.removeItem('userID');
       this.router.navigate(['']);
     })
   }

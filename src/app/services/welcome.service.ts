@@ -39,6 +39,7 @@ export class WelcomeService {
   public async userLogin(userObj) {
     return await this.firebase.auth().signInWithEmailAndPassword(userObj.emailAddress.value, userObj.password.value)
     .then((user) => {
+      localStorage.setItem('userID', user.user.uid);
       return 'Logged in successfully!';
     })
     .catch((error) => {
