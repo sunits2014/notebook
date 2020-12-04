@@ -1,0 +1,81 @@
+<div class="container loginWrapper">
+    <div>
+        <h2
+            *ngIf="!logoURL"
+            class="example-h2"
+        >
+            Please wait...
+        </h2>
+        <mat-progress-spinner
+            *ngIf="!logoURL"
+            class="example-margin"
+            color="#336699"
+            mode="indeterminate"
+        >
+        </mat-progress-spinner>
+    </div>
+    <mat-card
+        class="example-card"
+        *ngIf="logoURL"
+    >
+        <img
+            mat-card-image
+            [src]="logoURL"
+        >
+        <mat-card-title>Sign in to continue</mat-card-title>
+        <mat-card-content>
+            <form
+                [formGroup]="loginForm"
+                (ngSubmit)="loginUser()"
+            >
+                <mat-form-field appearance="outline">
+                    <mat-label>Email Address</mat-label>
+                    <input
+                        matInput
+                        id="email"
+                        type="email"
+                        class="validate"
+                        formControlName="emailAddress"
+                        name="email"
+                        required
+                    >
+                    <mat-error *ngIf="loginForm.controls['emailAddress'].hasError('required')">Email is required</mat-error>
+                    <mat-error *ngIf="loginForm.controls['emailAddress'].hasError('email')">Please enter a valid email address</mat-error>
+                    <mat-icon matSuffix>email</mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input
+                        matInput
+                        id="password"
+                        type="password"
+                        class="validate"
+                        formControlName="password"
+                        name="password"
+                        required
+                    >
+                    <mat-error *ngIf="loginForm.controls['password'].hasError('required')">Password is required</mat-error>
+                    <mat-icon matSuffix>lock</mat-icon>
+                </mat-form-field>
+                <mat-card-actions>
+                    <button
+                        mat-raised-button
+                        color="accent"
+                        type="submit"
+                        [disabled]="loginForm.disabled"
+                    >
+                        Submit
+                    </button>
+                    <mat-label>
+                        New User? Sign Up
+                        <a routerLink="signup" [disabled]="loginForm.disabled">here</a>
+                    </mat-label>
+                    <mat-label>
+                        Forgot Password? Reset
+                        <a routerLink="reset-password" [disabled]="loginForm.disabled">here</a>
+                    </mat-label>
+                </mat-card-actions>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -1,0 +1,193 @@
+<div class="container loginWrapper">
+    <div>
+        <h2
+            *ngIf="!logoURL"
+            class="example-h2"
+        >
+            Please wait...
+        </h2>
+        <mat-progress-spinner
+            *ngIf="!logoURL"
+            class="example-margin"
+            color="#336699"
+            mode="indeterminate"
+        >
+        </mat-progress-spinner>
+    </div>
+    <mat-card
+        class="example-card"
+        *ngIf="logoURL"
+    >
+        <mat-card-header>
+            <div
+                mat-card-avatar
+                class="example-header-image"
+                [ngStyle]="{backgroundImage:'url(' + logoURL + ')'}"
+            ></div>
+            <mat-card-title>Sign Up</mat-card-title>
+            <mat-card-subtitle>
+                Please register providing the details below.
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <form
+                [formGroup]="registerForm"
+                (ngSubmit)="registerUser()"
+            >
+                <mat-form-field appearance="outline">
+                    <mat-label>Full Name</mat-label>
+                    <input
+                        matInput
+                        id="name"
+                        type="text"
+                        class="validate"
+                        required
+                        placeholder="John Doe"
+                        formControlName="fullName"
+                        name="fullName"
+                    >
+                    <mat-error *ngIf="registerForm.controls['fullName'].hasError('required')">Full Name is required</mat-error>
+                    <mat-icon matSuffix>person</mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Telephone</mat-label>
+                    <input
+                        matInput
+                        id="number"
+                        type="tel"
+                        class="validate"
+                        required
+                        placeholder="5555566666"
+                        formControlName="telephone"
+                        name="telephone"
+                        maxlength="10"
+                        minlength="10"
+                    >
+                    <mat-error *ngIf="registerForm.controls['telephone'].hasError('required')">Telephone is required</mat-error>
+                    <mat-icon matSuffix>phone</mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email Address</mat-label>
+                    <input
+                        matInput
+                        id="email"
+                        type="email"
+                        class="validate"
+                        required
+                        placeholder="johndoe@importantperson.com"
+                        formControlName="emailAddress"
+                        name="emailAddress"
+                    >
+                    <mat-error *ngIf="registerForm.controls['emailAddress'].hasError('email')">Please enter a valid email address</mat-error>
+                    <mat-error *ngIf="registerForm.controls['emailAddress'].hasError('required')">Email is required</mat-error>
+                    <mat-icon matSuffix>email</mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input
+                        (focus)="showErrorBlock()"
+                        (blur)="hideErrorBlock()"
+                        matInput
+                        id="password"
+                        type="password"
+                        class="validate"
+                        required
+                        formControlName="password"
+                        name="password"
+                    >
+                    <mat-error *ngIf="registerForm.controls['password'].hasError('required')">Password is required</mat-error>
+                    <mat-icon matSuffix>lock</mat-icon>
+                </mat-form-field>
+                <mat-card
+                    *ngIf="showErrors"
+                    id="errorBlock"
+                >
+                    <label
+                        class="col"
+                        [ngClass]="registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'"
+                    >
+                        <i class="material-icons">
+                            {{ registerForm.controls['password'].hasError('required') ||
+          registerForm.controls['password'].hasError('minlength') ? 'cancel' :
+          'check_circle' }}
+                        </i>
+                        Must be at least 8 characters!
+                    </label>
+                    <label
+                        class="col"
+                        [ngClass]="registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'"
+                    >
+                        <i class="material-icons">
+                            {{ registerForm.controls['password'].hasError('required') ||
+          registerForm.controls['password'].hasError('hasNumber') ? 'cancel' :
+          'check_circle' }}
+                        </i>
+                        Must contain at least 1 number!
+                    </label>
+                    <label
+                        class="col"
+                        [ngClass]="registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'"
+                    >
+                        <i class="material-icons">
+                            {{ registerForm.controls['password'].hasError('required') ||
+          registerForm.controls['password'].hasError('hasCapitalCase') ? 'cancel' :
+          'check_circle' }}
+                        </i>
+                        Must contain at least 1 in Capital Case!
+                    </label>
+                    <label
+                        class="col"
+                        [ngClass]="registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasSmallCase')  ? 'text-danger' : 'text-success'"
+                    >
+                        <i class="material-icons">
+                            {{ registerForm.controls['password'].hasError('required') ||
+          registerForm.controls['password'].hasError('hasSmallCase') ? 'cancel' :
+          'check_circle' }}
+                        </i>
+                        Must contain at least 1 Letter in Small Case!
+                    </label>
+                    <label
+                        class="col"
+                        [ngClass]="registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'"
+                    >
+                        <i class="material-icons">
+                            {{ registerForm.controls['password'].hasError('required') ||
+          registerForm.controls['password'].hasError('hasSpecialCharacters') ? 'cancel' :
+          'check_circle' }}
+                        </i>
+                        Must contain at least 1 Special Character!
+                    </label>
+                </mat-card>
+                <mat-form-field appearance="outline">
+                    <mat-label>Confirm Password</mat-label>
+                    <input
+                        matInput
+                        id="cpassword"
+                        type="password"
+                        class="validate"
+                        required
+                        formControlName="confirmPassword"
+                        name="confirmPassword"
+                    >
+                    <mat-error *ngIf="registerForm.controls['confirmPassword'].hasError('required')">Password is required</mat-error>
+                    <mat-error *ngIf="registerForm.controls['confirmPassword'].hasError('NoPassswordMatch')">Passwords do not match</mat-error>
+                    <mat-icon matSuffix>lock</mat-icon>
+                </mat-form-field>
+                <mat-card-actions>
+                    <button
+                        mat-raised-button
+                        color="accent"
+                        type="submit"
+                        [disabled]="registerForm.disabled"
+                    >
+                        Submit
+                    </button>
+                    <mat-label>
+                        Already Registered? Sign In
+                        <a routerLink="" [disabled]="registerForm.disabled">here</a>
+                    </mat-label>
+                </mat-card-actions>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

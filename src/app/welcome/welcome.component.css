@@ -1,0 +1,67 @@
+:host {
+    background-image: url('../../assets/images/pexels-stas-knop-3760323.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    display: block;
+}
+
+.loginWrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.card-image {
+    background-color: #336699;
+}
+
+.card-stacked {
+    padding: 3rem 8rem;
+}
+
+.mat-radio-button~.mat-radio-button {
+    margin-left: 16px;
+}
+
+.formWrapper {
+    margin: 3rem 0;
+}
+
+.buttonWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.cardHolder {
+    float: none;
+    margin: 0 auto;
+}
+
+.example-card {
+    max-width: 400px;
+}
+
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+mat-card-actions {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+mat-card-actions button {
+    margin-bottom: 1rem;
+}
+
+mat-card-title {
+    margin-bottom: 2rem;
+}
+
+

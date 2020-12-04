@@ -1,0 +1,66 @@
+<div class="container loginWrapper">
+    <div>
+        <h2
+            *ngIf="!logoURL"
+            class="example-h2"
+        >
+            Please wait...
+        </h2>
+        <mat-progress-spinner
+            *ngIf="!logoURL"
+            class="example-margin"
+            color="#336699"
+            mode="indeterminate"
+        >
+        </mat-progress-spinner>
+    </div>
+    <mat-card
+        class="example-card"
+        *ngIf="logoURL"
+    >
+        <mat-card-header>
+            <div
+                mat-card-avatar
+                class="example-header-image"
+                [ngStyle]="{backgroundImage:'url(' + logoURL + ')'}"
+            ></div>
+            <mat-card-title>Reset Password</mat-card-title>
+            <mat-card-subtitle>
+                Instructions will be sent to your email address.
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="resetForm" (ngSubmit)="reset()">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email Address</mat-label>
+                    <input
+                        matInput
+                        id="email"
+                        type="email"
+                        class="validate"
+                        required
+                        placeholder="johndoe@importantperson.com"
+                        formControlName="emailAddress"
+                        name="emailAddress"
+                    >
+                    <mat-error *ngIf="resetForm.controls['emailAddress'].hasError('required')">Email is required</mat-error>
+                    <mat-error *ngIf="resetForm.controls['emailAddress'].hasError('email')">Please enter a valid email address</mat-error>
+                    <mat-icon matSuffix>email</mat-icon>
+                </mat-form-field>
+                <mat-card-actions>
+                    <button
+                        mat-raised-button
+                        color="accent"
+                        type="submit"
+                    >
+                        Submit
+                    </button>
+                    <mat-label>
+                        Go back to
+                        <a routerLink="">login</a>
+                    </mat-label>
+                </mat-card-actions>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

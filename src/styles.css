@@ -1,1 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+mat-form-field {
+    width: 100%;
+}
+
+.error-in-snackBar {
+    background-color: indianred;
+    color: white;
+    position: relative;
+    overflow: auto;
+}
+
+.success-in-snackBar {
+    background-color: forestgreen;
+    color: white;
+    position: relative;
+    overflow: auto;
+}
+
+.error-in-snackBar:after, .success-in-snackBar:after {
+    content: '';
+    animation: righttoleft 4s linear;
+    width: 0;
+    height: 3px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+}
+
+@keyframes righttoleft {
+    0% {
+        width: 100%;
+    } 100% {
+        width: 0;
+    }
+}
+
+snack-bar-container {
+    width: 7rem;
+}

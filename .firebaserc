@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "thenotebook-ba7cd": {
+      "hosting": {
+        "notebook": [
+          "thenotebook-ba7cd"
+        ]
+      }
+    }
+  }
+}
