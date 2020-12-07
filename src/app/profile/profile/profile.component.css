@@ -1,0 +1,24 @@
+mat-card-content {
+    display: flex;
+}
+
+mat-card-content > * {
+    flex-basis: 50%;
+}
+
+#imgWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    width: 25rem;
+    height: 25rem;
+    border-radius: 100% !important;
+    padding: 4rem;
+}
+
+textarea {
+    resize: none !important;
+}

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/storage';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UtilitiesService } from '../services/utilities.service';
@@ -51,7 +50,7 @@ export class WelcomeComponent implements OnInit {
           responseObj.message = response + ' You will be redirected to your dashboard now.'
           this.utilities.showBasicSnackBar(responseObj, 'success-in-snackBar');
           setTimeout(() => {
-            this.router.navigate(['main'])
+            this.router.navigate(['home'])
           },4000)
         }        
       });

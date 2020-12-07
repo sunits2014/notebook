@@ -12,9 +12,11 @@ export class LandingComponent implements OnInit {
 
   public logoURL: any;
   public menuItems: Array<Object>;
+  public profilePhoto: any;
 
   constructor(private activeRoute: ActivatedRoute, private welcomeService: WelcomeService, private router: Router, private utilities: UtilitiesService) { 
-    this.logoURL = this.activeRoute.snapshot.data.images.mainLogo
+    this.logoURL = this.activeRoute.snapshot.data.images.mainLogo;
+    this.profilePhoto = this.activeRoute.snapshot.data.images.profilePhoto;
     this.menuItems = [
       {
         title: 'Home',
@@ -47,6 +49,10 @@ export class LandingComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public onActivate(event) {
+    return event.activeRoute.data.next({user: this.activeRoute.snapshot.data.images.user});
+  }
+
   public signOut() {
     const responseObj = {
       title: '',
@@ -56,7 +62,6 @@ export class LandingComponent implements OnInit {
       responseObj.title = 'Alert';
       responseObj.message = 'You have been signed out successfully.'
       this.utilities.showBasicSnackBar(responseObj, 'success-in-snackBar');
-      localStorage.removeItem('userID');
       this.router.navigate(['']);
     })
   }

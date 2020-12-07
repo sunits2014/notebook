@@ -33,7 +33,6 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatBadgeModule} from '@angular/material/badge';
 import { BasicSnackbarComponent } from '../snackbar-components/basic/basic-snackbar/basic-snackbar.component';
-
 @NgModule({
   declarations: [BasicSnackbarComponent],
   imports: [

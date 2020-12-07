@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { FirebaseApp } from '@angular/fire';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { forkJoin } from 'rxjs';
+import { isObject } from 'util';
 import { PublishSubscribeService } from './publish-subscribe.service';
 
 @Injectable({
@@ -10,7 +12,13 @@ export class RouteResolverService {
 
   public resolvedData = {};
 
-  constructor(private fireStorage: AngularFireStorage, private publishSubscribe: PublishSubscribeService) {
+  private db: any;
+
+  constructor(
+    private fireStorage: AngularFireStorage, 
+    private publishSubscribe: PublishSubscribeService, 
+    private firebase: FirebaseApp) {
+      this.db = this.firebase.firestore();
   } 
 
   resolve (): Promise<any> {
@@ -18,10 +26,16 @@ export class RouteResolverService {
   }
 
   async resolveData() {
+    let userData: any;
+    let isUserLoggedIn = false;
+    userData = await this.getUserData();
+    (typeof userData === 'object') ? isUserLoggedIn = true : false;
     return this.resolvedData = {
       loginLogo: await this.getLoginLogo(),
       registerLogo: await this.getRegisterLogo(),
-      mainLogo: await this.getMainLogo()
+      mainLogo: await this.getMainLogo(),
+      user: userData,
+      isUserSignedIn: isUserLoggedIn
     }
   }
 
@@ -48,5 +62,17 @@ export class RouteResolverService {
         return resolve(data);
       })
     })
+  }
+
+  private getUserData(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          return resolve(user);
+        } else {
+          return resolve('No data found');
+        }
+      });
+    })   
   }
 }

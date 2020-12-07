@@ -1,4 +1,13 @@
+:host {
+    display: block;
+    position: relative;
+    height: 100%;
+}
+
 .docs-navbar-header {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -36,4 +45,13 @@ li {
     display: flex;
     flex-basis: 75%;
     justify-content: space-between;
+}
+
+.container {
+    width: 74%;
+    margin: 0 auto;
+    padding: 1rem;
+    position: relative;
+    top: 4rem;
+    z-index: 0;
 }

@@ -25,7 +25,7 @@ export class WelcomeService {
           phone: userObj.telephone.value
         }).then(response => {
           result.user.updateProfile({
-            displayName: userObj.fullName.value
+            displayName: userObj.fullName.value.split(' ')[0]
           });
           return 'User registered successfully!';
         }).catch(error => {
@@ -39,7 +39,6 @@ export class WelcomeService {
   public async userLogin(userObj) {
     return await this.firebase.auth().signInWithEmailAndPassword(userObj.emailAddress.value, userObj.password.value)
     .then((user) => {
-      localStorage.setItem('userID', user.user.uid);
       return 'Logged in successfully!';
     })
     .catch((error) => {

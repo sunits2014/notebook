@@ -3,6 +3,8 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PublishSubscribeService } from './services/publish-subscribe.service';
+import { UtilitiesService } from './services/utilities.service';
+import { WelcomeService } from './services/welcome.service';
 
 @Component({
   selector: 'app-root',
@@ -11,18 +13,33 @@ import { PublishSubscribeService } from './services/publish-subscribe.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
+  public title: any;
   public pageNotLoaded: boolean;
+  public profilePhoto: any;
+  public menuItems: Array<any>;
+  public logoURL: any;
 
   private subscriptions: Array<Subscription>;
 
-  constructor(private titleService: Title, private router: Router, private activeRoute: ActivatedRoute, private publishSubscribe: PublishSubscribeService) {
+  constructor(
+    private titleService: Title, 
+    public router: Router, 
+    private activeRoute: ActivatedRoute, 
+    private publishSubscribe: PublishSubscribeService,
+    private welcomeService: WelcomeService,
+    private utilities: UtilitiesService) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
+      this.title = this.activeRoute.root.firstChild.snapshot.firstChild.data.title || this.activeRoute.root.firstChild.snapshot.firstChild.firstChild.data.title;
         if (this.activeRoute.root.firstChild.snapshot.firstChild) {
           if (!this.activeRoute.root.firstChild.snapshot.firstChild.firstChild) {
             this.setTitle(this.activeRoute.root.firstChild.snapshot.firstChild.data.title);
+            this.pageNotLoaded = false;
+            this.logoURL = this.activeRoute.snapshot.firstChild.firstChild.data.images.mainLogo;
+            this.profilePhoto = this.activeRoute.snapshot.firstChild.firstChild.data.images.user.photoUrl;
           } else {
             this.setTitle(this.activeRoute.root.firstChild.snapshot.firstChild.firstChild.data.title);
+            this.pageNotLoaded = false;
           }
         } else {
           this.setTitle("");
@@ -33,7 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions = [];
     this.router.events.subscribe(event => {
       if (event instanceof RoutesRecognized) {
-        if (event.urlAfterRedirects.includes('authenticate') || event.urlAfterRedirects === '/main') {
+        if (event.urlAfterRedirects.includes('authenticate') || event.urlAfterRedirects === '/home') {
           this.pageNotLoaded = true;
         }
       }
@@ -44,17 +61,53 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit () {
-    const loggedInUser = localStorage.getItem('userID');
-    if (loggedInUser) {
-      this.router.navigate(['main']);
-    }
     this.setTitle();
+    this.menuItems = [
+      {
+        title: 'Home',
+        link: 'home',
+        icon: 'home'
+      },
+      {
+        title: 'Courses',
+        link: 'courses',
+        icon: 'local_library'
+      },
+      {
+        title: 'Students',
+        link: 'students',
+        icon: 'people'
+      },
+      {
+        title: 'Q & A Forum',
+        link: 'forum',
+        icon: 'forum'
+      },
+      {
+        title: 'Contact',
+        link: 'contact',
+        icon: 'perm_phone_msg'
+      }
+    ];
   }
 
   public ngOnDestroy() {
     this.subscriptions.forEach(subscription => {
       subscription.unsubscribe();
     });
+  }
+
+  public signOut() {
+    const responseObj = {
+      title: '',
+      message: ''
+    }
+    this.welcomeService.signOut().then(response => {
+      responseObj.title = 'Alert';
+      responseObj.message = 'You have been signed out successfully.'
+      this.utilities.showBasicSnackBar(responseObj, 'success-in-snackBar');
+      this.router.navigate(['']);
+    })
   }
 
   private setTitle(pageTitle?: string) {

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { IUser } from '../interfaces/user';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  public user: IUser;
+
+  constructor(private activeRoute: ActivatedRoute) {
+    this.user = {} as IUser;
+    this.user = this.activeRoute.snapshot.data.images.user;
+   }
 
   ngOnInit(): void {
   }

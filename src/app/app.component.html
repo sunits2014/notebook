@@ -7,4 +7,58 @@
     >
     </mat-progress-spinner>
 </mat-card-content>
-<router-outlet *ngIf="!pageNotLoaded"></router-outlet>
+<nav *ngIf="router.url !== '/authenticate'"
+    class="docs-navbar-header"
+    color="primary"
+>
+    <div id="menuWrapper">
+        <div id="imageWrapper">
+            <img [src]="logoURL">
+        </div>
+        <ul>
+            <li *ngFor="let menu of menuItems">
+                <a
+                    [routerLink]="menu.link"
+                    mat-button
+                    routerLinkActive="mat-raised-button"
+                >
+                    <i class="small material-icons left">{{menu.icon}}</i>
+                    {{menu.title}}
+                </a>
+            </li>
+            <button
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+                aria-label="Example icon-button with a menu"
+            >
+                <div
+                    *ngIf="profilePhoto"
+                    mat-card-avatar
+                    class="example-header-image"
+                    [ngStyle]="{backgroundImage:'url(' + profilePhoto + ')'}"
+                ></div>
+                <mat-icon *ngIf="!profilePhoto">account_circle</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <a
+                    mat-menu-item
+                    routerLink="profile"
+                >
+                    <mat-icon>tune</mat-icon>
+                    <span>Profile</span>
+                </a>
+                <a
+                    mat-menu-item
+                    (click)="signOut()"
+                >
+                    <mat-icon>power_settings_new</mat-icon>
+                    <span>Sign Out</span>
+                </a>
+            </mat-menu>
+        </ul>
+    </div>
+</nav>
+<div class="container" *ngIf="router.url !== '/authenticate'">
+    <router-outlet></router-outlet>
+</div>
+<router-outlet *ngIf="router.url === '/authenticate'"></router-outlet>
