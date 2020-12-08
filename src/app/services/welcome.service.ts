@@ -18,8 +18,8 @@ export class WelcomeService {
           name: userObj.fullName.value,
           email: userObj.emailAddress.value,
           password: userObj.password.value,
-          photoUrl: '',
-          address: '',
+          photoUrl: 'gs://thenotebook-ba7cd.appspot.com/user.svg',
+          address: [],
           friends: [],
           enrolledCourses: [],
           phone: userObj.telephone.value

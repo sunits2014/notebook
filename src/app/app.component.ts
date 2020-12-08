@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized, Scroll } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PublishSubscribeService } from './services/publish-subscribe.service';
 import { UtilitiesService } from './services/utilities.service';
@@ -34,27 +34,17 @@ export class AppComponent implements OnInit, OnDestroy {
         if (this.activeRoute.root.firstChild.snapshot.firstChild) {
           if (!this.activeRoute.root.firstChild.snapshot.firstChild.firstChild) {
             this.setTitle(this.activeRoute.root.firstChild.snapshot.firstChild.data.title);
-            this.pageNotLoaded = false;
             this.logoURL = this.activeRoute.snapshot.firstChild.firstChild.data.images.mainLogo;
             this.profilePhoto = this.activeRoute.snapshot.firstChild.firstChild.data.images.user.photoUrl;
           } else {
             this.setTitle(this.activeRoute.root.firstChild.snapshot.firstChild.firstChild.data.title);
-            this.pageNotLoaded = false;
           }
         } else {
           this.setTitle("");
         }
       }
     });
-    this.pageNotLoaded = true;
     this.subscriptions = [];
-    this.router.events.subscribe(event => {
-      if (event instanceof RoutesRecognized) {
-        if (event.urlAfterRedirects.includes('authenticate') || event.urlAfterRedirects === '/home') {
-          this.pageNotLoaded = true;
-        }
-      }
-    })
     this.subscriptions.push(this.publishSubscribe.loaderObservable.subscribe(status => {
       this.pageNotLoaded = status;
     }))
@@ -106,7 +96,9 @@ export class AppComponent implements OnInit, OnDestroy {
       responseObj.title = 'Alert';
       responseObj.message = 'You have been signed out successfully.'
       this.utilities.showBasicSnackBar(responseObj, 'success-in-snackBar');
-      this.router.navigate(['']);
+      setTimeout(() => {
+        this.router.navigate(['']);
+      }, 4000)
     })
   }
 

@@ -43,3 +43,18 @@ mat-form-field {
 snack-bar-container {
     width: 7rem;
 }
+
+mat-card-content {
+    margin: 0 16px;
+}
+
+mat-card-actions {
+    justify-content: center;
+    align-items: center;
+    display: flex !important;
+    flex-direction: column;
+}
+
+button {
+    text-transform: uppercase;
+}

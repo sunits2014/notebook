@@ -60,6 +60,10 @@ li {
     margin: 0 auto;
     padding: 1rem;
     position: relative;
-    top: 4rem;
+    top: 6rem;
     z-index: 0;
+}
+
+img {
+    width: 100%;
 }

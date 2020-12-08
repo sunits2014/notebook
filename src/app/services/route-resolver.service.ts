@@ -26,6 +26,7 @@ export class RouteResolverService {
   }
 
   async resolveData() {
+    this.publishSubscribe.broadcastLoaderStatus(true);
     let userData: any;
     let isUserLoggedIn = false;
     userData = await this.getUserData();
@@ -68,11 +69,30 @@ export class RouteResolverService {
     return new Promise((resolve, reject) => {
       this.firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-          return resolve(user);
+            const docRef = this.db.collection("users").doc(user.uid);
+            docRef.get().then((doc) => {
+            if (doc.exists) {
+              const userData = doc.data();
+              this.getProfilePic(userData.photoUrl).then(response => {
+                userData.photoUrl = response;
+                return resolve(userData);
+              });
+            }
+          }).catch(function(error) {
+              console.log("Error getting document:", error);
+          });
         } else {
           return resolve('No data found');
         }
       });
     })   
+  }
+
+  private async getProfilePic(photUrl): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.fireStorage.refFromURL(photUrl).getDownloadURL().subscribe(data => {
+        return resolve(data);
+      })
+    })
   }
 }

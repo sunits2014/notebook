@@ -7,7 +7,7 @@
     >
     </mat-progress-spinner>
 </mat-card-content>
-<nav *ngIf="router.url !== '/authenticate'"
+<nav *ngIf="router.url !== '/authenticate' && !pageNotLoaded"
     class="docs-navbar-header"
     color="primary"
 >
@@ -31,13 +31,11 @@
                 [matMenuTriggerFor]="menu"
                 aria-label="Example icon-button with a menu"
             >
-                <div
-                    *ngIf="profilePhoto"
+                <img
                     mat-card-avatar
                     class="example-header-image"
-                    [ngStyle]="{backgroundImage:'url(' + profilePhoto + ')'}"
-                ></div>
-                <mat-icon *ngIf="!profilePhoto">account_circle</mat-icon>
+                    [src]="profilePhoto"
+                >
             </button>
             <mat-menu #menu="matMenu">
                 <a
@@ -58,7 +56,7 @@
         </ul>
     </div>
 </nav>
-<div class="container" *ngIf="router.url !== '/authenticate'">
+<div class="container" *ngIf="router.url !== '/authenticate' && !pageNotLoaded">
     <router-outlet></router-outlet>
 </div>
-<router-outlet *ngIf="router.url === '/authenticate'"></router-outlet>
+<router-outlet *ngIf="router.url === '/authenticate' && !pageNotLoaded"></router-outlet>

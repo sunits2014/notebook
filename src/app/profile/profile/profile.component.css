@@ -22,3 +22,23 @@ img {
 textarea {
     resize: none !important;
 }
+
+table {
+    width: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100% !important; 
+}
+
+form div:nth-child(1) {
+    display: flex;
+    flex-basis: 100%;
+}
+
+form div:nth-child(1) div {
+    flex-basis: 50%;
+    flex-direction: column;
+}
