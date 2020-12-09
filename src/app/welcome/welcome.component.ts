@@ -16,12 +16,12 @@ export class WelcomeComponent implements OnInit {
   public loginForm: FormGroup;
 
   constructor(
-    private welcomeService: WelcomeService, 
+    private welcomeService: WelcomeService,
     private formBuilder: FormBuilder,
     private utilities: UtilitiesService,
     private router: Router,
     private activeRoute: ActivatedRoute
-    ) { 
+  ) {
   }
 
   ngOnInit(): void {
@@ -41,20 +41,20 @@ export class WelcomeComponent implements OnInit {
       this.loginForm.disable();
       this.welcomeService.userLogin(this.loginForm.controls).then(response => {
         if (response.message) {
-          responseObj.title = 'Alert';
-          responseObj.message = response.message;
-          this.utilities.showBasicSnackBar(responseObj, 'error-in-snackBar');
+          this.utilities.toaster.title = 'Alert';
+          this.utilities.toaster.message = response.message;
+          this.utilities.showBasicSnackBar('error-in-snackBar');
           this.loginForm.enable();
         } else {
-          responseObj.title = 'Success';
-          responseObj.message = response + ' You will be redirected to your dashboard now.'
-          this.utilities.showBasicSnackBar(responseObj, 'success-in-snackBar');
+          this.utilities.toaster.title = 'Success';
+          this.utilities.toaster.message = response + ' You will be redirected to your dashboard now.'
+          this.utilities.showBasicSnackBar('success-in-snackBar');
           setTimeout(() => {
             this.router.navigate(['home'])
-          },4000)
-        }        
+          }, 4000)
+        }
       });
-    }    
+    }
   }
 
 }

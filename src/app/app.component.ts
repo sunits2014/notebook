@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized, Scroll } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PicUploadService } from './services/pic-upload.service';
 import { PublishSubscribeService } from './services/publish-subscribe.service';
 import { UtilitiesService } from './services/utilities.service';
 import { WelcomeService } from './services/welcome.service';
@@ -22,15 +23,16 @@ export class AppComponent implements OnInit, OnDestroy {
   private subscriptions: Array<Subscription>;
 
   constructor(
-    private titleService: Title, 
-    public router: Router, 
-    private activeRoute: ActivatedRoute, 
+    private titleService: Title,
+    public router: Router,
+    public activeRoute: ActivatedRoute,
     private publishSubscribe: PublishSubscribeService,
     private welcomeService: WelcomeService,
-    private utilities: UtilitiesService) {
+    private utilities: UtilitiesService,
+    private picUploadService: PicUploadService) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-      this.title = this.activeRoute.root.firstChild.snapshot.firstChild.data.title || this.activeRoute.root.firstChild.snapshot.firstChild.firstChild.data.title;
+        this.title = this.activeRoute.root.firstChild.snapshot.firstChild.data.title || this.activeRoute.root.firstChild.snapshot.firstChild.firstChild.data.title;
         if (this.activeRoute.root.firstChild.snapshot.firstChild) {
           if (!this.activeRoute.root.firstChild.snapshot.firstChild.firstChild) {
             this.setTitle(this.activeRoute.root.firstChild.snapshot.firstChild.data.title);
@@ -47,10 +49,13 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions = [];
     this.subscriptions.push(this.publishSubscribe.loaderObservable.subscribe(status => {
       this.pageNotLoaded = status;
+    }));
+    this.subscriptions.push(this.picUploadService.userDataListener.subscribe(userData => {
+      this.profilePhoto = userData.user.photoUrl;
     }))
   }
 
-  public ngOnInit () {
+  public ngOnInit() {
     this.setTitle();
     this.menuItems = [
       {
@@ -93,9 +98,9 @@ export class AppComponent implements OnInit, OnDestroy {
       message: ''
     }
     this.welcomeService.signOut().then(response => {
-      responseObj.title = 'Alert';
-      responseObj.message = 'You have been signed out successfully.'
-      this.utilities.showBasicSnackBar(responseObj, 'success-in-snackBar');
+      this.utilities.toaster.title = 'Alert';
+      this.utilities.toaster.message = 'You have been signed out successfully.'
+      this.utilities.showBasicSnackBar('success-in-snackBar');
       setTimeout(() => {
         this.router.navigate(['']);
       }, 4000)
@@ -105,5 +110,5 @@ export class AppComponent implements OnInit, OnDestroy {
   private setTitle(pageTitle?: string) {
     this.titleService.setTitle('The Notebook' + (pageTitle || ''));
   }
-  
+
 }

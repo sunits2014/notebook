@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IUser } from 'src/app/interfaces/user';
+import { PicUploadService } from 'src/app/services/pic-upload.service';
+import { UtilitiesService } from 'src/app/services/utilities.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +17,7 @@ export class ProfileComponent implements OnInit {
   public address: FormGroup;
   public profilePhoto: any;
 
-  constructor(private activeRoute: ActivatedRoute, private formBuilder: FormBuilder) {
+  constructor(private activeRoute: ActivatedRoute, private formBuilder: FormBuilder, private picUploadService: PicUploadService, private utilitiesService: UtilitiesService) {
     this.user = {} as IUser;
     this.activeRoute.data.subscribe(value => {
       this.user = value.images.user;
@@ -26,7 +28,7 @@ export class ProfileComponent implements OnInit {
       state: new FormControl(this.user.address[0].state, Validators.required),
       postal: new FormControl(this.user.address[0].postal, Validators.required)
     })
-   }
+  }
 
   ngOnInit(): void {
     this.profileForm = this.formBuilder.group({

@@ -1,0 +1,21 @@
+<div id="imgWrapper">
+    <div>
+        <div>
+            <img [src]="user.photoUrl">
+            <div>
+                <input
+                    type="file"
+                    id="profilePic"
+                    (change)="uploadPic($event)"
+                >
+                <label
+                    mat-fab
+                    for="profilePic"
+                    matTooltip="Choose your picture to upload"
+                >
+                    <mat-icon>add_a_photo</mat-icon>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

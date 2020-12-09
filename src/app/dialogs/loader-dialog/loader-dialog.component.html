@@ -1,0 +1,38 @@
+<div class="modal">
+    <div
+        class="modal-dialog modal-lg"
+        role="dialog"
+        aria-hidden="true"
+    >
+        <div class="modal-content">
+            <!-- <div class="modal-header">
+                <h1
+                    style="overflow: hidden;"
+                    class="modal-title"
+                >
+                    {{dialogHeader}}
+                </h1>
+            </div> -->
+            <div class="modal-body">
+                <mat-progress-spinner
+                    class="example-margin"
+                    color="accent"
+                    mode="indeterminate"
+                    diameter="45"
+                >
+                </mat-progress-spinner>
+                {{dialogContent}}
+                <br>
+            </div>
+            <!-- <div class="modal-footer">
+                <button
+                    class="btn btn-primary"
+                    value="ok"
+                    type="button"
+                >
+                    ok
+                </button>
+            </div> -->
+        </div>
+    </div>
+</div>

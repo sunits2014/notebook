@@ -46,7 +46,7 @@ li {
 }
 
 #imageWrapper img {
-    width:30%;
+    width: 30%;
 }
 
 #menuWrapper {
@@ -65,5 +65,44 @@ li {
 }
 
 img {
-    width: 100%;
+    width: 25%;
+    margin-right: 0rem;
+}
+
+mat-icon {
+    cursor: pointer;
+}
+
+#profileWrapper, #profileWrapper a {
+    align-items: center;
+    display: flex;
+}
+
+#profileWrapper {
+    align-items: center;
+    display: flex;
+    margin-left: 1rem;
+}
+
+#profileWrapper a {
+    width: 6rem;
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 10rem;
+    cursor: pointer;
+    position: relative;
+}
+
+#profileWrapper a img {
+    position: absolute;
+    left: 0rem;
+    width: 33%;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+}
+
+button {
+    text-transform: none !important;
 }

@@ -6,15 +6,14 @@ import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { LandingComponent } from './landing/landing.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { SharedModule } from './shared/shared.module';
-import { PublishSubscribeService } from '../app/services/publish-subscribe.service'; 
+import { PublishSubscribeService } from '../app/services/publish-subscribe.service';
+
 @NgModule({
   declarations: [
     AppComponent,
-    LandingComponent,
     AuthenticationComponent
   ],
   imports: [
