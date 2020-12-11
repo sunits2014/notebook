@@ -1,4 +1,4 @@
-<div class="container loginWrapper">
+<div class="loginWrapper">
     <div>
         <h2
             *ngIf="!logoURL"
@@ -68,11 +68,21 @@
                     </button>
                     <mat-label>
                         New User? Sign Up
-                        <a routerLink="signup" [disabled]="loginForm.disabled">here</a>
+                        <a
+                            routerLink="signup"
+                            [disabled]="loginForm.disabled"
+                        >
+                            here
+                        </a>
                     </mat-label>
                     <mat-label>
                         Forgot Password? Reset
-                        <a routerLink="reset-password" [disabled]="loginForm.disabled">here</a>
+                        <a
+                            routerLink="reset-password"
+                            [disabled]="loginForm.disabled"
+                        >
+                            here
+                        </a>
                     </mat-label>
                 </mat-card-actions>
             </form>

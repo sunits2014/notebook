@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public title: any;
   public pageNotLoaded: boolean;
   public profilePhoto: any;
-  public logoURL: any;
+  public logoUrl: any;
   public loginRoute: boolean;
   public isUSerSignedIn: any;
 
@@ -42,9 +42,14 @@ export class AppComponent implements OnInit, OnDestroy {
         if (this.activeRoute.root.firstChild.snapshot.firstChild) {
           if (!this.activeRoute.root.firstChild.snapshot.firstChild.firstChild) {
             this.setTitle(this.activeRoute.root.firstChild.snapshot.firstChild.data.title);
-            this.logoURL = this.activeRoute.snapshot.firstChild.firstChild.data.images.mainLogo;
+            this.logoUrl = this.activeRoute.snapshot.firstChild.firstChild.data.images.mainLogo;
             this.profilePhoto = this.activeRoute.snapshot.firstChild.firstChild.data.images.user.photoUrl;
           } else {
+            if (this.activeRoute.root.firstChild.snapshot.firstChild.firstChild.data.images.isUserSignedIn) {
+              if (this.router.url === '/' || this.router.url === '/authenticate' || this.router.url === '/authenticate/signup' || this.router.url === '/authenticate/reset-password') {
+                this.router.navigate(['home']);
+              }
+            }
             this.setTitle(this.activeRoute.root.firstChild.snapshot.firstChild.firstChild.data.title);
           }
         } else {
@@ -59,6 +64,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.picUploadService.userDataListener.subscribe(userData => {
       if (userData) {
         this.profilePhoto = userData.user.photoUrl;
+
       }
     }));
     this.subscriptions.push(this.generalService.userLoggedInListener.subscribe(response => {
@@ -66,16 +72,7 @@ export class AppComponent implements OnInit, OnDestroy {
       if (!response) {
         this.router.navigate(['']);
       }
-      // if (response) {
-      //   this.router.events.subscribe(event => {
-      //     if (event instanceof NavigationEnd) {
-      //       if (event.url === '/' || event.url === '/authenticate' || event.url === '/authenticate/signup' || event.url === '/authenticate/reset-password') {
-      //         this.router.navigate(['home']);
-      //       }
-      //     }
-      //   })
-      // }
-    }))
+    }));
   }
 
   public ngOnInit() {

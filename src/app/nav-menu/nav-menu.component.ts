@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { GeneralService } from '../services/general.service';
+import { PublishSubscribeService } from '../services/publish-subscribe.service';
 import { UtilitiesService } from '../services/utilities.service';
 import { WelcomeService } from '../services/welcome.service';
 
@@ -11,23 +12,17 @@ import { WelcomeService } from '../services/welcome.service';
 })
 export class NavMenuComponent implements OnInit {
 
+  @Input() public logoUrl: any;
+  @Input() public profilePhoto: any;
+
   public menuItems: Array<any>;
-  public logoUrl: any;
-  public profilePhoto: any;
 
   constructor(
     private welcomeService: WelcomeService,
     private utilities: UtilitiesService,
     private router: Router,
-    private generalService: GeneralService,
-    private activeRoute: ActivatedRoute) {
+    private publishSubscribe: PublishSubscribeService) {
     this.menuItems = [];
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.logoUrl = this.activeRoute.firstChild.firstChild.data['value'].images.mainLogo;
-        this.profilePhoto = this.activeRoute.firstChild.firstChild.data['value'].images.user.photoUrl;
-      }
-    })
   }
 
   ngOnInit(): void {
@@ -62,7 +57,6 @@ export class NavMenuComponent implements OnInit {
 
   public signOut() {
     this.welcomeService.signOut().then(response => {
-      this.generalService.broadcastUserLoggedInStatus(false);
       this.utilities.toaster.title = 'Alert';
       this.utilities.toaster.message = 'You have been signed out successfully.'
       this.utilities.showBasicSnackBar('success-in-snackBar');

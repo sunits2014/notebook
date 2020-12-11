@@ -7,5 +7,9 @@
     >
     </mat-progress-spinner>
 </mat-card-content>
-<nav-menu></nav-menu>
+<nav-menu
+    *ngIf="router.url !== '/' && router.url !== '/authenticate' && router.url !== '/authenticate/signup' && router.url !== '/authenticate/reset-pasword'"
+    [logoUrl]="logoUrl"
+    [profilePhoto]="profilePhoto"
+></nav-menu>
 <router-outlet *ngIf="!pageNotLoaded"></router-outlet>
