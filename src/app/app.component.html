@@ -7,56 +7,5 @@
     >
     </mat-progress-spinner>
 </mat-card-content>
-<nav
-    *ngIf="router.url !== '/authenticate' && !pageNotLoaded"
-    class="docs-navbar-header"
-    color="primary"
->
-    <div id="menuWrapper">
-        <div id="imageWrapper">
-            <img [src]="logoURL">
-        </div>
-        <ul>
-            <li *ngFor="let menu of menuItems">
-                <a
-                    [routerLink]="menu.link"
-                    mat-button
-                    routerLinkActive="mat-raised-button"
-                >
-                    <i class="small material-icons left">{{menu.icon}}</i>
-                    {{menu.title}}
-                </a>
-            </li>
-            <div id="profileWrapper">
-                <a routerLink="profile" routerLinkActive="mat-raised-button" mat-button>
-                    <img [src]="profilePhoto">
-                    <span>Profile</span>
-                </a>
-                <div>
-                    <button
-                        mat-icon-button
-                        [matMenuTriggerFor]="menu"
-                    >
-                        <mat-icon>more_vert</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button
-                            mat-menu-item
-                            (click)="signOut()"
-                        >
-                            <mat-icon>power_settings_new</mat-icon>
-                            <span>Sign Out</span>
-                        </button>
-                    </mat-menu>
-                </div>
-            </div>
-        </ul>
-    </div>
-</nav>
-<div
-    class="container"
-    *ngIf="router.url !== '/authenticate' && !pageNotLoaded"
->
-    <router-outlet></router-outlet>
-</div>
-<router-outlet *ngIf="router.url === '/authenticate' && !pageNotLoaded"></router-outlet>
+<nav-menu></nav-menu>
+<router-outlet *ngIf="!pageNotLoaded"></router-outlet>

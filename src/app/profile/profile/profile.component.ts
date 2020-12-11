@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IUser } from 'src/app/interfaces/user';
-import { PicUploadService } from 'src/app/services/pic-upload.service';
+import { ProfileUpdateService } from 'src/app/services/profileupdate.service';
 import { UtilitiesService } from 'src/app/services/utilities.service';
 
 @Component({
@@ -17,30 +17,46 @@ export class ProfileComponent implements OnInit {
   public address: FormGroup;
   public profilePhoto: any;
 
-  constructor(private activeRoute: ActivatedRoute, private formBuilder: FormBuilder, private picUploadService: PicUploadService, private utilitiesService: UtilitiesService) {
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private profileUpdateService: ProfileUpdateService,
+    private utilitiesService: UtilitiesService) {
     this.user = {} as IUser;
     this.activeRoute.data.subscribe(value => {
       this.user = value.images.user;
     });
     this.address = this.formBuilder.group({
-      main: new FormControl(this.user.address[0].main, Validators.required),
-      city: new FormControl(this.user.address[0].city, Validators.required),
-      state: new FormControl(this.user.address[0].state, Validators.required),
-      postal: new FormControl(this.user.address[0].postal, Validators.required)
+      main: new FormControl(this.user.address.main),
+      city: new FormControl(this.user.address.city),
+      state: new FormControl(this.user.address.state),
+      postal: new FormControl(this.user.address.postal)
     })
   }
 
   ngOnInit(): void {
     this.profileForm = this.formBuilder.group({
-      fullName: new FormControl(this.user.name, Validators.required),
+      name: new FormControl(this.user.name, Validators.required),
       email: new FormControl(this.user.email, [Validators.required, Validators.email]),
-      telephone: new FormControl(this.user.phone, [Validators.required]),
+      phone: new FormControl(this.user.phone, [Validators.required]),
       address: this.address
     })
   }
 
   public updateProfile() {
-    console.log(this.profileForm)
+    this.utilitiesService.dialogParams.header = '';
+    this.utilitiesService.dialogParams.body = 'Profile update in progress, please wait...';
+    this.utilitiesService.showLoaderDialog();
+    this.profileUpdateService.updateUserProfile(this.profileForm.value).then(response => {
+      this.utilitiesService.closeAllDialogs();
+      this.utilitiesService.dialogParams.header = 'Info';
+      this.utilitiesService.dialogParams.body = 'Profile updated successfully.'
+      this.utilitiesService.showBasicInfoDialog();
+    }).catch(error => {
+      this.utilitiesService.toaster.title = 'Error';
+      this.utilitiesService.toaster.message = error.message;
+      this.utilitiesService.showBasicSnackBar('error-in-snackBar');
+    })
   }
 
 }

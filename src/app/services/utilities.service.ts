@@ -45,6 +45,17 @@ export class UtilitiesService {
       component: 'LoaderComponent',
       disableClose: true
     };
+    this.dialogConfig.disableClose = true;
+    this.dialogRef = this.dialog.open(DialogsComponent, this.dialogConfig);
+  }
+
+  public showBasicInfoDialog() {
+    this.dialogConfig.data = {
+      header: this.dialogParams.header,
+      body: this.dialogParams.body,
+      component: 'BasicComponent'
+    };
+    this.dialogConfig.disableClose = true;
     this.dialogRef = this.dialog.open(DialogsComponent, this.dialogConfig);
   }
 

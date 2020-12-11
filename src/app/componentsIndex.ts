@@ -4,3 +4,4 @@ export * from '../app/home/home.component';
 export * from '../app/register/register.component';
 export * from '../app/welcome/welcome.component';
 export * from '../app/profile-image/profile-image.component';
+export * from '../app/nav-menu/nav-menu.component';

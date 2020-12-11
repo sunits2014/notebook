@@ -1,1 +1,30 @@
-<p>basic-dialog works!</p>
+<div class="modal">
+    <div
+        class="modal-dialog modal-lg"
+        role="dialog"
+        aria-hidden="true"
+    >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1
+                    style="overflow: hidden;"
+                    class="modal-title"
+                >
+                    {{dialogHeader}}
+                </h1>
+            </div>
+            <div class="modal-body">{{dialogContent}}</div>
+            <div class="modal-footer">
+                <button
+                    mat-raised-button
+                    color="accent"
+                    value="ok"
+                    type="button"
+                    (click)="publishConfirmation()"
+                >
+                    ok
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { FirebaseApp } from '@angular/fire';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { isObject } from 'util';
+import { IResolvedData } from '../interfaces/resolved-data';
+import { GeneralService } from './general.service';
 import { PublishSubscribeService } from './publish-subscribe.service';
 
 @Injectable({
@@ -10,33 +11,48 @@ import { PublishSubscribeService } from './publish-subscribe.service';
 })
 export class RouteResolverService {
 
-  public resolvedData = {};
+  public resolvedData: IResolvedData;
 
   private db: any;
 
   constructor(
-    private fireStorage: AngularFireStorage, 
-    private publishSubscribe: PublishSubscribeService, 
-    private firebase: FirebaseApp) {
-      this.db = this.firebase.firestore();
-  } 
+    private fireStorage: AngularFireStorage,
+    private publishSubscribe: PublishSubscribeService,
+    private firebase: FirebaseApp,
+    private generalService: GeneralService) {
+    this.db = this.firebase.firestore();
+    this.resolvedData = {} as IResolvedData;
+  }
 
-  resolve (): Promise<any> {
+  resolve(): Promise<any> {
     return this.resolveData();
   }
 
   async resolveData() {
-    this.publishSubscribe.broadcastLoaderStatus(true);
     let userData: any;
     let isUserLoggedIn = false;
     userData = await this.getUserData();
     (typeof userData === 'object') ? isUserLoggedIn = true : false;
-    return this.resolvedData = {
-      loginLogo: await this.getLoginLogo(),
-      registerLogo: await this.getRegisterLogo(),
-      mainLogo: await this.getMainLogo(),
-      user: userData,
-      isUserSignedIn: isUserLoggedIn
+    if (isUserLoggedIn) {
+      this.resolvedData = {
+        loginLogo: await this.getLoginLogo(),
+        registerLogo: await this.getRegisterLogo(),
+        mainLogo: await this.getMainLogo(),
+        user: userData,
+        isUserSignedIn: isUserLoggedIn
+      }
+      this.publishSubscribe.broadcastLoaderStatus(false);
+      return this.resolvedData;
+    } else {
+      this.resolvedData = {
+        loginLogo: await this.getLoginLogo(),
+        registerLogo: await this.getRegisterLogo(),
+        mainLogo: await this.getMainLogo(),
+        user: {},
+        isUserSignedIn: false
+      };
+      this.publishSubscribe.broadcastLoaderStatus(false);
+      return this.resolvedData;
     }
   }
 
@@ -45,7 +61,7 @@ export class RouteResolverService {
       this.fireStorage.refFromURL('gs://thenotebook-ba7cd.appspot.com/logo_full.png').getDownloadURL().subscribe(data => {
         return resolve(data);
       })
-    }) 
+    })
   }
 
   private async getRegisterLogo() {
@@ -59,7 +75,6 @@ export class RouteResolverService {
   private async getMainLogo() {
     return new Promise((resolve, reject) => {
       this.fireStorage.refFromURL('gs://thenotebook-ba7cd.appspot.com/name_logo.png').getDownloadURL().subscribe(data => {
-        this.publishSubscribe.broadcastLoaderStatus(false);
         return resolve(data);
       })
     })
@@ -69,8 +84,9 @@ export class RouteResolverService {
     return new Promise((resolve, reject) => {
       this.firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-            const docRef = this.db.collection("users").doc(user.uid);
-            docRef.get().then((doc) => {
+          this.generalService.broadcastUserLoggedInStatus(true);
+          const docRef = this.db.collection("users").doc(user.uid);
+          docRef.get().then((doc) => {
             if (doc.exists) {
               const userData = doc.data();
               this.getProfilePic(userData.photoUrl).then(response => {
@@ -78,14 +94,14 @@ export class RouteResolverService {
                 return resolve(userData);
               });
             }
-          }).catch(function(error) {
-              console.log("Error getting document:", error);
+          }).catch(function (error) {
+            console.log("Error getting document:", error);
           });
         } else {
           return resolve('No data found');
         }
       });
-    })   
+    })
   }
 
   private async getProfilePic(photUrl): Promise<any> {

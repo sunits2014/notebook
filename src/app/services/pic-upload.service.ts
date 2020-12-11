@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FirebaseApp } from '@angular/fire';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import { IUser } from '../interfaces/user';
 import { UtilitiesService } from '../services/utilities.service';
 
 @Injectable({
@@ -31,7 +29,6 @@ export class PicUploadService {
   constructor(
     private firebase: FirebaseApp,
     private storage: AngularFireStorage,
-    private database: AngularFirestore,
     private utilitiesService: UtilitiesService,
     private activeRoute: ActivatedRoute) {
     this.db = this.firebase.firestore();
@@ -94,7 +91,7 @@ export class PicUploadService {
                           user.updateProfile({
                             photoURL: imageURL
                           }).then(response => {
-                            this.database.collection('users').doc(user.uid).update({ photoUrl: imageURL }).then(response => {
+                            this.db.collection('users').doc(user.uid).update({ photoUrl: imageURL }).then(response => {
                               const docRef = this.db.collection("users").doc(user.uid);
                               docRef.get().then((doc) => {
                                 if (doc.exists) {

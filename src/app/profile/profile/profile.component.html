@@ -1,124 +1,122 @@
-<mat-card class="example-card">
-    <mat-card-header>
-        <mat-card-title>Update Profile</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <form
-            [formGroup]="profileForm"
-            (ngSubmit)="updateProfile()"
-        >
-            <div>
+<div class="container">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>Update Profile</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form
+                [formGroup]="profileForm"
+                (ngSubmit)="updateProfile()"
+            >
                 <div>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Name</mat-label>
-                        <input
-                            matInput
-                            formControlName="fullName"
-                        >
-                        <mat-icon matSuffix>person</mat-icon>
-                        <mat-error *ngIf="profileForm.controls['fullName'].hasError('required')">Full Name is required</mat-error>
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Email</mat-label>
-                        <input
-                            matInput
-                            placeholder="Placeholder"
-                            formControlName="email"
-                        >
-                        <mat-icon matSuffix>email</mat-icon>
-                        <mat-error *ngIf="profileForm.controls['email'].hasError('required')">Email Address is required</mat-error>
-                        <mat-error *ngIf="profileForm.controls['email'].hasError('email')">Please enter a valid email address</mat-error>
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Telephone</mat-label>
-                        <input
-                            matInput
-                            placeholder="Placeholder"
-                            formControlName="telephone"
-                            maxlength="10"
-                            minlength="10"
-                        >
-                        <mat-icon matSuffix>phone</mat-icon>
-                        <mat-error *ngIf="profileForm.controls['telephone'].hasError('required')">Phone Number is required</mat-error>
-                    </mat-form-field>
-                    <form formGroupName="address">
-                        <mat-form-field
-                            appearance="outline"
-                            class="example-full-width"
-                        >
-                            <mat-label>Address</mat-label>
-                            <textarea
-                                rows="15"
+                    <div>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Name</mat-label>
+                            <input
                                 matInput
-                                formControlName="main"
-                            ></textarea>
-                            <mat-error *ngIf="address.controls['main'].hasError('required')">Address is required</mat-error>
+                                formControlName="name"
+                            >
+                            <mat-icon matSuffix>person</mat-icon>
+                            <mat-error *ngIf="profileForm.controls['name'].hasError('required')">Full Name is required</mat-error>
                         </mat-form-field>
-                        <table class="example-full-width">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <mat-form-field
-                                            appearance="outline"
-                                            class="example-full-width"
-                                        >
-                                            <mat-label>City</mat-label>
-                                            <input
-                                                matInput
-                                                placeholder="Ex. Bangalore"
-                                                formControlName="city"
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input
+                                matInput
+                                placeholder="Placeholder"
+                                formControlName="email"
+                            >
+                            <mat-icon matSuffix>email</mat-icon>
+                            <mat-error *ngIf="profileForm.controls['email'].hasError('required')">Email Address is required</mat-error>
+                            <mat-error *ngIf="profileForm.controls['email'].hasError('email')">Please enter a valid email address</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Telephone</mat-label>
+                            <input
+                                matInput
+                                placeholder="Placeholder"
+                                formControlName="phone"
+                                maxlength="10"
+                                minlength="10"
+                            >
+                            <mat-icon matSuffix>phone</mat-icon>
+                            <mat-error *ngIf="profileForm.controls['phone'].hasError('required')">Phone Number is required</mat-error>
+                        </mat-form-field>
+                        <form formGroupName="address">
+                            <mat-form-field
+                                appearance="outline"
+                                class="example-full-width"
+                            >
+                                <mat-label>Address</mat-label>
+                                <textarea
+                                    rows="15"
+                                    matInput
+                                    formControlName="main"
+                                ></textarea>
+                            </mat-form-field>
+                            <table class="example-full-width">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <mat-form-field
+                                                appearance="outline"
+                                                class="example-full-width"
                                             >
-                                            <mat-error *ngIf="address.controls['city'].hasError('required')">City is required</mat-error>
-                                        </mat-form-field>
-                                    </td>
-                                    <td>
-                                        <mat-form-field
-                                            appearance="outline"
-                                            class="example-full-width"
-                                        >
-                                            <mat-label>State</mat-label>
-                                            <input
-                                                matInput
-                                                placeholder="Ex. Karnataka"
-                                                formControlName="state"
+                                                <mat-label>City</mat-label>
+                                                <input
+                                                    matInput
+                                                    placeholder="Ex. Bangalore"
+                                                    formControlName="city"
+                                                >
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field
+                                                appearance="outline"
+                                                class="example-full-width"
                                             >
-                                            <mat-error *ngIf="address.controls['state'].hasError('required')">State is required</mat-error>
-                                        </mat-form-field>
-                                    </td>
-                                    <td>
-                                        <mat-form-field
-                                            appearance="outline"
-                                            class="example-full-width"
-                                        >
-                                            <mat-label>Postal Code</mat-label>
-                                            <input
-                                                matInput
-                                                maxlength="5"
-                                                placeholder="Ex. 94105"
-                                                value
-                                                maxlength="6"
-                                                minlength="6"
-                                                formControlName="postal"
+                                                <mat-label>State</mat-label>
+                                                <input
+                                                    matInput
+                                                    placeholder="Ex. Karnataka"
+                                                    formControlName="state"
+                                                >
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field
+                                                appearance="outline"
+                                                class="example-full-width"
                                             >
-                                            <mat-error *ngIf="address.controls['postal'].hasError('required')">Postal Code is required</mat-error>
-                                        </mat-form-field>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
+                                                <mat-label>Postal Code</mat-label>
+                                                <input
+                                                    matInput
+                                                    maxlength="5"
+                                                    placeholder="Ex. 94105"
+                                                    value
+                                                    maxlength="6"
+                                                    minlength="6"
+                                                    formControlName="postal"
+                                                >
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                    <profile-image></profile-image>
                 </div>
-                <profile-image></profile-image>
-            </div>
-            <mat-card-actions>
-                <button
-                    mat-raised-button
-                    color="accent"
-                    type="submit"
-                >
-                    Update
-                </button>
-            </mat-card-actions>
-        </form>
-    </mat-card-content>
-</mat-card>
+                <mat-card-actions>
+                    <button
+                        mat-raised-button
+                        color="accent"
+                        type="submit"
+                    >
+                        Update
+                    </button>
+                </mat-card-actions>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

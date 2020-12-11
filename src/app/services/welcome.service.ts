@@ -19,7 +19,12 @@ export class WelcomeService {
           email: userObj.emailAddress.value,
           password: userObj.password.value,
           photoUrl: 'gs://thenotebook-ba7cd.appspot.com/user.svg',
-          address: [],
+          address: {
+            main: '',
+            city: '',
+            state: '',
+            postal: ''
+          },
           friends: [],
           enrolledCourses: [],
           phone: userObj.telephone.value
@@ -38,18 +43,18 @@ export class WelcomeService {
 
   public async userLogin(userObj) {
     return await this.firebase.auth().signInWithEmailAndPassword(userObj.emailAddress.value, userObj.password.value)
-    .then((user) => {
-      return 'Logged in successfully!';
-    })
-    .catch((error) => {
-      return error;
-    });
+      .then((user) => {
+        return 'Logged in successfully!';
+      })
+      .catch((error) => {
+        return error;
+      });
   }
 
   public async resetPassword(userObj) {
     return await this.firebase.auth().sendPasswordResetEmail(userObj.emailAddress.value).then(response => {
       return 'Email sent successfully. Please check your email.';
-    }).catch(function(error) {
+    }).catch(function (error) {
       return error;
     });
   }
@@ -57,7 +62,7 @@ export class WelcomeService {
   public async signOut() {
     return await this.firebase.auth().signOut().then(response => {
       return response;
-    }).catch(function(error) {
+    }).catch(function (error) {
       return error;
     });
   }

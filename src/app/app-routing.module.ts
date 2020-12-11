@@ -10,8 +10,8 @@ const routes: Routes = [
   },
   {
     path: 'authenticate',
-    loadChildren:  () => import('../app/authentication/authenticate.module').then(mod => mod.AuthenticateModule),
-  }, 
+    loadChildren: () => import('../app/authentication/authenticate.module').then(mod => mod.AuthenticateModule),
+  },
   {
     path: 'home',
     loadChildren: () => import('../app/home/home.module').then(mod => mod.HomeModule),
@@ -41,7 +41,7 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('../app/profile/profile.module').then(mod => mod.ProfileModule),
     canActivate: [CanActivateService]
-  } 
+  }
 ];
 
 @NgModule({

@@ -85,9 +85,7 @@ export class RegisterComponent implements OnInit {
           this.utilities.toaster.title = 'Success';
           this.utilities.toaster.message = response + ' You will be redirected to the Login page now.'
           this.utilities.showBasicSnackBar('success-in-snackBar');
-          setTimeout(() => {
-            this.router.navigate(['']);
-          }, 4000);
+          this.router.navigate(['']);
         }
       })
     }

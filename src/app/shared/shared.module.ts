@@ -36,6 +36,7 @@ import { BasicSnackbarComponent } from '../snackbar-components/basic/basic-snack
 
 import { PicUploadService } from '../services/pic-upload.service';
 import { BasicDialogComponent, DialogsComponent, LoaderDialogComponent } from '../dialogs/dialogsIndex';
+import { ProfileUpdateService } from '../services/profileupdate.service';
 @NgModule({
   declarations: [BasicSnackbarComponent, DialogsComponent, LoaderDialogComponent, BasicDialogComponent],
   imports: [
@@ -109,7 +110,7 @@ import { BasicDialogComponent, DialogsComponent, LoaderDialogComponent } from '.
     MatPaginatorModule,
     MatBadgeModule
   ],
-  providers: [PicUploadService],
+  providers: [PicUploadService, ProfileUpdateService],
   entryComponents: [DialogsComponent, LoaderDialogComponent, BasicDialogComponent]
 })
 export class SharedModule { }

@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized, Scroll } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router, RoutesRecognized, Scroll } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { GeneralService } from './services/general.service';
 import { PicUploadService } from './services/pic-upload.service';
 import { PublishSubscribeService } from './services/publish-subscribe.service';
 import { UtilitiesService } from './services/utilities.service';
@@ -10,15 +11,17 @@ import { WelcomeService } from './services/welcome.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [PicUploadService]
 })
 export class AppComponent implements OnInit, OnDestroy {
 
   public title: any;
   public pageNotLoaded: boolean;
   public profilePhoto: any;
-  public menuItems: Array<any>;
   public logoURL: any;
+  public loginRoute: boolean;
+  public isUSerSignedIn: any;
 
   private subscriptions: Array<Subscription>;
 
@@ -27,10 +30,13 @@ export class AppComponent implements OnInit, OnDestroy {
     public router: Router,
     public activeRoute: ActivatedRoute,
     private publishSubscribe: PublishSubscribeService,
-    private welcomeService: WelcomeService,
-    private utilities: UtilitiesService,
-    private picUploadService: PicUploadService) {
+    private picUploadService: PicUploadService,
+    private generalService: GeneralService) {
+    this.pageNotLoaded = true;
     this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.pageNotLoaded = true;
+      }
       if (event instanceof NavigationEnd) {
         this.title = this.activeRoute.root.firstChild.snapshot.firstChild.data.title || this.activeRoute.root.firstChild.snapshot.firstChild.firstChild.data.title;
         if (this.activeRoute.root.firstChild.snapshot.firstChild) {
@@ -51,60 +57,35 @@ export class AppComponent implements OnInit, OnDestroy {
       this.pageNotLoaded = status;
     }));
     this.subscriptions.push(this.picUploadService.userDataListener.subscribe(userData => {
-      this.profilePhoto = userData.user.photoUrl;
+      if (userData) {
+        this.profilePhoto = userData.user.photoUrl;
+      }
+    }));
+    this.subscriptions.push(this.generalService.userLoggedInListener.subscribe(response => {
+      this.isUSerSignedIn = response;
+      if (!response) {
+        this.router.navigate(['']);
+      }
+      // if (response) {
+      //   this.router.events.subscribe(event => {
+      //     if (event instanceof NavigationEnd) {
+      //       if (event.url === '/' || event.url === '/authenticate' || event.url === '/authenticate/signup' || event.url === '/authenticate/reset-password') {
+      //         this.router.navigate(['home']);
+      //       }
+      //     }
+      //   })
+      // }
     }))
   }
 
   public ngOnInit() {
     this.setTitle();
-    this.menuItems = [
-      {
-        title: 'Home',
-        link: 'home',
-        icon: 'home'
-      },
-      {
-        title: 'Courses',
-        link: 'courses',
-        icon: 'local_library'
-      },
-      {
-        title: 'Students',
-        link: 'students',
-        icon: 'people'
-      },
-      {
-        title: 'Q & A Forum',
-        link: 'forum',
-        icon: 'forum'
-      },
-      {
-        title: 'Contact',
-        link: 'contact',
-        icon: 'perm_phone_msg'
-      }
-    ];
   }
 
   public ngOnDestroy() {
     this.subscriptions.forEach(subscription => {
       subscription.unsubscribe();
     });
-  }
-
-  public signOut() {
-    const responseObj = {
-      title: '',
-      message: ''
-    }
-    this.welcomeService.signOut().then(response => {
-      this.utilities.toaster.title = 'Alert';
-      this.utilities.toaster.message = 'You have been signed out successfully.'
-      this.utilities.showBasicSnackBar('success-in-snackBar');
-      setTimeout(() => {
-        this.router.navigate(['']);
-      }, 4000)
-    })
   }
 
   private setTitle(pageTitle?: string) {

@@ -10,11 +10,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { SharedModule } from './shared/shared.module';
 import { PublishSubscribeService } from '../app/services/publish-subscribe.service';
+import { GeneralService } from '../app/services/general.service';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    NavMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,8 @@ import { PublishSubscribeService } from '../app/services/publish-subscribe.servi
   ],
   providers: [
     Title,
-    PublishSubscribeService
+    PublishSubscribeService,
+    GeneralService
   ],
   bootstrap: [AppComponent]
 })

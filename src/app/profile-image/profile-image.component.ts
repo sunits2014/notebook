@@ -31,9 +31,7 @@ export class ProfileImageComponent implements OnInit {
   public uploadPic(event) {
 
     this.picUploadService.uploadProfilePic(event.target.files).then(response => {
-      setTimeout(() => {
-        this.utilitiesService.closeAllDialogs();
-      }, 4000)
+      this.utilitiesService.closeAllDialogs();
     }).catch(error => {
       this.utilitiesService.toaster.title = 'Error';
       this.utilitiesService.toaster.message = error;
