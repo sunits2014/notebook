@@ -29,3 +29,13 @@ form div:nth-child(1) div {
     flex-basis: 50%;
     flex-direction: column;
 }
+
+#addressForm div {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: space-between;
+}
+
+#addressForm div mat-form-field {
+    flex-basis: 48%;
+}

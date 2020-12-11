@@ -20,10 +20,12 @@ export class WelcomeService {
           password: userObj.password.value,
           photoUrl: 'gs://thenotebook-ba7cd.appspot.com/user.svg',
           address: {
-            main: '',
+            address1: '',
+            address2: '',
+            pincode: '',
+            country: '',
             city: '',
-            state: '',
-            postal: ''
+            state: ''
           },
           friends: [],
           enrolledCourses: [],

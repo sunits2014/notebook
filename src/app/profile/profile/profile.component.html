@@ -15,6 +15,7 @@
                             <input
                                 matInput
                                 formControlName="name"
+                                placeholder="John Doe"
                             >
                             <mat-icon matSuffix>person</mat-icon>
                             <mat-error *ngIf="profileForm.controls['name'].hasError('required')">Full Name is required</mat-error>
@@ -23,7 +24,7 @@
                             <mat-label>Email</mat-label>
                             <input
                                 matInput
-                                placeholder="Placeholder"
+                                placeholder="johndoe@example.com"
                                 formControlName="email"
                             >
                             <mat-icon matSuffix>email</mat-icon>
@@ -34,7 +35,7 @@
                             <mat-label>Telephone</mat-label>
                             <input
                                 matInput
-                                placeholder="Placeholder"
+                                placeholder="5555555555"
                                 formControlName="phone"
                                 maxlength="10"
                                 minlength="10"
@@ -42,67 +43,85 @@
                             <mat-icon matSuffix>phone</mat-icon>
                             <mat-error *ngIf="profileForm.controls['phone'].hasError('required')">Phone Number is required</mat-error>
                         </mat-form-field>
-                        <form formGroupName="address">
-                            <mat-form-field
-                                appearance="outline"
-                                class="example-full-width"
-                            >
-                                <mat-label>Address</mat-label>
-                                <textarea
-                                    rows="15"
-                                    matInput
-                                    formControlName="main"
-                                ></textarea>
-                            </mat-form-field>
-                            <table class="example-full-width">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <mat-form-field
-                                                appearance="outline"
-                                                class="example-full-width"
-                                            >
-                                                <mat-label>City</mat-label>
-                                                <input
-                                                    matInput
-                                                    placeholder="Ex. Bangalore"
-                                                    formControlName="city"
-                                                >
-                                            </mat-form-field>
-                                        </td>
-                                        <td>
-                                            <mat-form-field
-                                                appearance="outline"
-                                                class="example-full-width"
-                                            >
-                                                <mat-label>State</mat-label>
-                                                <input
-                                                    matInput
-                                                    placeholder="Ex. Karnataka"
-                                                    formControlName="state"
-                                                >
-                                            </mat-form-field>
-                                        </td>
-                                        <td>
-                                            <mat-form-field
-                                                appearance="outline"
-                                                class="example-full-width"
-                                            >
-                                                <mat-label>Postal Code</mat-label>
-                                                <input
-                                                    matInput
-                                                    maxlength="5"
-                                                    placeholder="Ex. 94105"
-                                                    value
-                                                    maxlength="6"
-                                                    minlength="6"
-                                                    formControlName="postal"
-                                                >
-                                            </mat-form-field>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <form
+                            formGroupName="address"
+                            id="addressForm"
+                        >
+                            <div>
+                                <mat-form-field
+                                    appearance="outline"
+                                    class="example-full-width"
+                                >
+                                    <mat-label>Address 1</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="House No., Street"
+                                        formControlName="address1"
+                                    >
+                                </mat-form-field>
+                                <mat-form-field
+                                    appearance="outline"
+                                    class="example-full-width"
+                                >
+                                    <mat-label>Address 2</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="Locality"
+                                        formControlName="address2"
+                                    >
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <mat-form-field
+                                    appearance="outline"
+                                    class="example-full-width"
+                                >
+                                    <mat-label>Pincode</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="XXXXXX"
+                                        formControlName="pincode"
+                                        maxlength="6"
+                                        minlength="6"
+                                        (change)="lookUpLocation()"
+                                    >
+                                </mat-form-field>
+                                <mat-form-field
+                                    appearance="outline"
+                                    class="example-full-width"
+                                >
+                                    <mat-label>City</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="Ex. Guwahati"
+                                        formControlName="city"
+                                    >
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <mat-form-field
+                                    appearance="outline"
+                                    class="example-full-width"
+                                >
+                                    <mat-label>State</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="Ex. Assam"
+                                        formControlName="state"
+                                    >
+                                </mat-form-field>
+                                <mat-form-field
+                                    appearance="outline"
+                                    class="example-full-width"
+                                >
+                                    <mat-label>Country</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="Ex. India"
+                                        formControlName="country"
+                                    >
+                                </mat-form-field>
+                            </div>
                         </form>
                     </div>
                     <profile-image></profile-image>

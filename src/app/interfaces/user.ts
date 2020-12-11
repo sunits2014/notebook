@@ -1,5 +1,5 @@
 export interface IUser {
-    address: { main: '', city: '', state: '', postal: '' },
+    address: { address1: '', address2: '', pincode: '', city: '', state: '', country: '' },
     email: string,
     enrolledCourses: Array<any>,
     friends: Array<any>,

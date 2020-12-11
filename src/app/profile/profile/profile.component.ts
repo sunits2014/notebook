@@ -27,10 +27,12 @@ export class ProfileComponent implements OnInit {
       this.user = value.images.user;
     });
     this.address = this.formBuilder.group({
-      main: new FormControl(this.user.address.main),
-      city: new FormControl(this.user.address.city),
-      state: new FormControl(this.user.address.state),
-      postal: new FormControl(this.user.address.postal)
+      address1: new FormControl(this.user.address.address1),
+      address2: new FormControl(this.user.address.address2),
+      pincode: new FormControl(this.user.address.pincode),
+      city: new FormControl({ value: this.user.address.city, disabled: true }),
+      state: new FormControl({ value: this.user.address.state, disabled: true }),
+      country: new FormControl({ value: this.user.address.country, disabled: true })
     })
   }
 
@@ -57,6 +59,17 @@ export class ProfileComponent implements OnInit {
       this.utilitiesService.toaster.message = error.message;
       this.utilitiesService.showBasicSnackBar('error-in-snackBar');
     })
+  }
+
+  public lookUpLocation() {
+    if (this.address.controls['pincode'].value.length === 6) {
+      this.utilitiesService.dialogParams.body = "Fetching location details, please wait...";
+      this.utilitiesService.showLoaderDialog();
+      this.profileUpdateService.fetchLocationDetails(this.address.controls['pincode'].value).subscribe(data => {
+        this.utilitiesService.closeAllDialogs();
+        console.log(data);
+      })
+    }
   }
 
 }
