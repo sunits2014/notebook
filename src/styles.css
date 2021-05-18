@@ -75,3 +75,57 @@ button {
     top: 4rem;
     z-index: 0;
 }
+
+.modal {
+    display: flex !important;
+    overflow: hidden;
+    width: 50vw;
+    height: 50vh;
+}
+
+.modal-header {
+    border-bottom: none !important;
+    padding: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    color: #666;
+    justify-content: flex-start !important;
+}
+
+.modal-dialog {
+    width: 100%
+}
+
+.modal-content {
+    box-shadow: 0 0 0 0 !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.modal-body {
+    padding: 0.25rem 0;
+    font-size: 1rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    flex-basis: 100%;
+    justify-content: center;
+}
+
+.modal-footer {
+    border-top: none !important;
+    padding: 1rem 0 0;
+}
+
+button {
+    line-height: 0;
+    font-size: 14px;
+    border-radius: 4px !important;
+}
+
+mat-progress-spinner {
+    margin-bottom: 1rem;
+}

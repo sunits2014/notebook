@@ -35,11 +35,11 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { BasicSnackbarComponent } from '../snackbar-components/basic/basic-snackbar/basic-snackbar.component';
 
 import { PicUploadService } from '../services/pic-upload.service';
-import { BasicDialogComponent, DialogsComponent, LoaderDialogComponent } from '../dialogs/dialogsIndex';
+import { BasicDialogComponent, DialogsComponent, LoaderDialogComponent, CoursesDialogComponent } from '../dialogs/dialogsIndex';
 import { ProfileUpdateService } from '../services/profileupdate.service';
 import { HttpClientModule } from '@angular/common/http';
 @NgModule({
-  declarations: [BasicSnackbarComponent, DialogsComponent, LoaderDialogComponent, BasicDialogComponent],
+  declarations: [BasicSnackbarComponent, DialogsComponent, LoaderDialogComponent, BasicDialogComponent, CoursesDialogComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -114,6 +114,6 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [PicUploadService, ProfileUpdateService, HttpClientModule],
-  entryComponents: [DialogsComponent, LoaderDialogComponent, BasicDialogComponent]
+  entryComponents: [DialogsComponent, LoaderDialogComponent, BasicDialogComponent, CoursesDialogComponent]
 })
 export class SharedModule { }

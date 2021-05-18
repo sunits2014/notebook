@@ -1,7 +1,6 @@
 import { Component, Inject, ViewChild, ViewContainerRef, ComponentRef, ComponentFactoryResolver, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BasicDialogComponent } from './basic-dialog/basic-dialog.component';
-import { LoaderDialogComponent } from './loader-dialog/loader-dialog.component';
+import { CoursesDialogComponent, LoaderDialogComponent, BasicDialogComponent } from './dialogsIndex';
 
 @Component({
   selector: 'notebook-dialog',
@@ -37,6 +36,9 @@ export class DialogsComponent implements OnInit, OnDestroy {
       case 'LoaderComponent':
         this.loadDynamicDialog(LoaderDialogComponent);
         break;
+      case 'CoursesComponent':
+        this.loadDynamicDialog(CoursesDialogComponent);
+        break  
     }
   }
 

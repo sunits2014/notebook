@@ -49,7 +49,11 @@ export class ProfileComponent implements OnInit {
     this.utilitiesService.dialogParams.header = '';
     this.utilitiesService.dialogParams.body = 'Profile update in progress, please wait...';
     this.utilitiesService.showLoaderDialog();
+    this.profileForm.controls['address'].enable();
     this.profileUpdateService.updateUserProfile(this.profileForm.value).then(response => {
+      this.address.controls['city'].disable();
+      this.address.controls['state'].disable();
+      this.address.controls['country'].disable();
       this.utilitiesService.closeAllDialogs();
       this.utilitiesService.dialogParams.header = 'Info';
       this.utilitiesService.dialogParams.body = 'Profile updated successfully.'
@@ -67,7 +71,10 @@ export class ProfileComponent implements OnInit {
       this.utilitiesService.showLoaderDialog();
       this.profileUpdateService.fetchLocationDetails(this.address.controls['pincode'].value).subscribe(data => {
         this.utilitiesService.closeAllDialogs();
-        console.log(data);
+        const postalCodeData = Object.values(data.results);
+        this.address.controls['city'].setValue(postalCodeData[0][0].province);
+        this.address.controls['state'].setValue(postalCodeData[0][0].state);
+        this.address.controls['country'].setValue(postalCodeData[0][0].country_code);
       })
     }
   }

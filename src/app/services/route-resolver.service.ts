@@ -30,7 +30,9 @@ export class RouteResolverService {
 
   async resolveData() {
     let userData: any;
+    let courses: any;
     let isUserLoggedIn = false;
+    courses = await this.getCoursesCollection();
     userData = await this.getUserData();
     (typeof userData === 'object') ? isUserLoggedIn = true : false;
     if (isUserLoggedIn) {
@@ -39,7 +41,8 @@ export class RouteResolverService {
         registerLogo: await this.getRegisterLogo(),
         mainLogo: await this.getMainLogo(),
         user: userData,
-        isUserSignedIn: isUserLoggedIn
+        isUserSignedIn: isUserLoggedIn,
+        coursesCollection: courses
       }
       this.publishSubscribe.broadcastLoaderStatus(false);
       return this.resolvedData;
@@ -49,7 +52,8 @@ export class RouteResolverService {
         registerLogo: await this.getRegisterLogo(),
         mainLogo: await this.getMainLogo(),
         user: {},
-        isUserSignedIn: false
+        isUserSignedIn: false,
+        coursesCollection: courses
       };
       this.publishSubscribe.broadcastLoaderStatus(false);
       return this.resolvedData;
@@ -93,6 +97,29 @@ export class RouteResolverService {
                 userData.photoUrl = response;
                 return resolve(userData);
               });
+            }
+          }).catch(function (error) {
+            console.log("Error getting document:", error);
+          });
+        } else {
+          return resolve('No data found');
+        }
+      });
+    })
+  }
+
+  private getCoursesCollection(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          const docRef = this.db.collection("courses");
+          docRef.get().then((doc) => {
+            if (doc) {
+              let courses = [];
+              doc.docs.forEach(element => {
+                courses.push(element.id);  
+              });
+              return resolve(courses);
             }
           }).catch(function (error) {
             console.log("Error getting document:", error);

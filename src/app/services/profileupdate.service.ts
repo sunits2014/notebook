@@ -46,12 +46,8 @@ export class ProfileUpdateService {
   }
 
   public fetchLocationDetails(pincode: number): Observable<any> {
-    const url = 'http://postalpincode.in/api/pincode/' + pincode;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      })
-    };
-    return this.httpClient.get(url, httpOptions);
+    const url = 'https://app.zipcodebase.com/api/v1/search?apikey=83d6da00-6f81-11eb-af69-29ea71d5d4a0&codes=' + pincode;
+    // const url = "https://api.postalpincode.in/pincode/" + pincode;
+    return this.httpClient.get(url);
   }
 }

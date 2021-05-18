@@ -1,0 +1,17 @@
+/* You can add global responsive styles to this file, and also import other style files */
+
+@media only screen and (max-width: 600px) {
+    .loginWrapper {
+        display: flex;
+        justify-content: center;
+    }
+    .loginWrapper div {
+        width: 50%;
+    }
+    mat-card {
+        width: 80%;
+    }
+    mat-card img {
+        width: 100%;
+    }
+}

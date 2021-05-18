@@ -59,6 +59,17 @@ export class UtilitiesService {
     this.dialogRef = this.dialog.open(DialogsComponent, this.dialogConfig);
   }
 
+  public showCoursesEnrollmentDialog(courses?) {
+    this.dialogConfig.data = {
+      header: this.dialogParams.header,
+      body: this.dialogParams.body,
+      component: 'CoursesComponent',
+      courses: courses
+    };
+    this.dialogConfig.disableClose = true;
+    this.dialogRef = this.dialog.open(DialogsComponent, this.dialogConfig);
+  }
+
   public closeAllDialogs() {
     this.dialog.closeAll();
   }

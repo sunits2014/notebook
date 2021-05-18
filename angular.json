@@ -24,10 +24,17 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css"
+              "src/styles.css",
+              "src/responsive.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/bootstrap/dist/css/bootstrap-grid.min.css",
+              "./node_modules/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
+              "./node_modules/bootstrap/dist/css/bootstrap-reboot.min.css",
+              "./node_modules/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
+              "./node_modules/bootstrap/dist/css/bootstrap-utilities.min.css",
+              "./node_modules/bootstrap/dist/css/bootstrap-utilities.rtl.min.css"
             ],
-            "scripts": [
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {

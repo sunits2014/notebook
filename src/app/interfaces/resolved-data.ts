@@ -3,5 +3,6 @@ export interface IResolvedData {
     registerLogo: any;
     mainLogo: any;
     user: object;
-    isUserSignedIn: boolean
+    isUserSignedIn: boolean,
+    coursesCollection: Array<string>
 }

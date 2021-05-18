@@ -3,4 +3,21 @@
         Hello
         <b>{{user.name}},</b>
     </h1>
+    <div class="row d-flex">
+        <div class="row w-100 d-flex align-items-center justify-content-center flex-basis-80">
+            <h3>Your Enrolled Courses:</h3>
+            <ul *ngIf="userEnrolledCourses.length > 0">
+                <li *ngFor="let course of userEnrolledCourses">
+                    {{course}}
+                </li>
+            </ul>
+            <div *ngIf="userEnrolledCourses.length === 0" [ngClass]="{'min-height-40': userEnrolledCourses.length === 0}" class="row p-4 ng-star-inserted h-75 w-25 d-flex align-items-center justify-content-center flex-column">
+                <h4 class="d-flex align-items-center justify-content-center">No courses were found.</h4>
+                <button type="button" mat-raised-button (click)="showCourses()">Enroll Here</button>
+            </div>
+        </div>
+        <div class="row flex-basis-20">
+            <h3>Who liked what?</h3>
+        </div>
+    </div>
 </div>
