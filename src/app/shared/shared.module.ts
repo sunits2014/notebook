@@ -33,13 +33,14 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatBadgeModule } from '@angular/material/badge';
 import { BasicSnackbarComponent } from '../snackbar-components/basic/basic-snackbar/basic-snackbar.component';
+import { SkeletonLoaderComponent } from '../skeleton-loader/skeleton-loader.component'
 
 import { PicUploadService } from '../services/pic-upload.service';
 import { BasicDialogComponent, DialogsComponent, LoaderDialogComponent, CoursesDialogComponent } from '../dialogs/dialogsIndex';
 import { ProfileUpdateService } from '../services/profileupdate.service';
 import { HttpClientModule } from '@angular/common/http';
 @NgModule({
-  declarations: [BasicSnackbarComponent, DialogsComponent, LoaderDialogComponent, BasicDialogComponent, CoursesDialogComponent],
+  declarations: [BasicSnackbarComponent, DialogsComponent, LoaderDialogComponent, BasicDialogComponent, CoursesDialogComponent, SkeletonLoaderComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -111,7 +112,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatSortModule,
     MatPaginatorModule,
     MatBadgeModule,
-    HttpClientModule
+    HttpClientModule,
+    SkeletonLoaderComponent
   ],
   providers: [PicUploadService, ProfileUpdateService, HttpClientModule],
   entryComponents: [DialogsComponent, LoaderDialogComponent, BasicDialogComponent, CoursesDialogComponent]

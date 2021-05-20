@@ -4,7 +4,7 @@
         role="dialog"
         aria-hidden="true"
     >
-        <div class="modal-content modal-content w-100 h-50">
+        <div class="modal-content modal-content w-100 h-75 overflow-auto">
             <div class="modal-header">
                 <h1
                     style="overflow: hidden;"
@@ -16,27 +16,27 @@
             <div class="modal-body modal-body d-flex align-items-start justify-content-start flex-column">
                 {{dialogContent}}
                 <div class="d-flex w-100 pt-4 justify-content-around">
-                    <mat-card>
+                    <mat-card class="w-50 m-2">
                         <ul class="m-0 p-0">
                             <h3>Main Courses</h3>
                             <li *ngFor="let course of mandatoryCourses" class="p-1">
-                                <mat-checkbox class="example-margin">{{course}}</mat-checkbox>
+                                <mat-checkbox class="example-margin" (change)="selectMainCourse(course)">{{course.name}}</mat-checkbox>
                             </li>
                         </ul>
                     </mat-card>
-                    <mat-card>
+                    <mat-card class="w-50 m-2">
                         <ul class="m-0 p-0">
                             <h3>Elective Courses</h3>
                             <li *ngFor="let course of electiveCourses" class="p-1">
-                                <mat-radio-button [value]="course">{{course}}</mat-radio-button>
+                                <mat-radio-button [value]="course" name="electiveCourses" (change)="selectElectiveCourse(course)">{{course.name}}</mat-radio-button>
                             </li>
                         </ul>
                     </mat-card>
-                    <mat-card>
+                    <mat-card class="w-50 m-2">
                         <ul class="m-0 p-0">
                             <h3>MIL Courses</h3>
                             <li *ngFor="let course of milCourses" class="p-1">
-                                <mat-radio-button [value]="course">{{course}}</mat-radio-button>
+                                <mat-radio-button [value]="course" name="milCourses" (change)="selectMilCourse(course)">{{course.name}}</mat-radio-button>
                             </li>
                         </ul>
                     </mat-card>
@@ -48,6 +48,7 @@
                     color="primary"
                     type="button"
                     class="m-1"
+                    (click)="enrollCourses()"
                 >
                     Update
                 </button>

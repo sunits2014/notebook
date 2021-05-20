@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 export class GeneralService {
 
   public userLoggedInListener: Subject<any> = new Subject();
+  public coursesUpdated: Subject<boolean> = new Subject();
 
   constructor(private firebase: FirebaseApp) { }
 
@@ -25,5 +26,9 @@ export class GeneralService {
 
   public broadcastUserLoggedInStatus(value: boolean) {
     this.userLoggedInListener.next(value);
+  }
+
+  public broadcastCoursesUpdated(boolValue: boolean) {
+    this.coursesUpdated.next(boolValue);
   }
 }

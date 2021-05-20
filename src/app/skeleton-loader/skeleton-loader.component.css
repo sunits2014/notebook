@@ -1,0 +1,130 @@
+.skeleton {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    max-width: 400px;
+    height: 155px;
+    /* margin: 20px; */
+    border-radius: 10px;
+    background-color: #E2E8F0;
+    box-shadow:
+      0 9px 33px rgba(0, 0, 0, 0.07);
+  }
+
+
+  .card-text, .skeleton-text{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 250px;
+      margin-left: 10px;
+  }
+
+
+  .card-img, .skeleton-img{
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+  }
+
+
+  .card-description, .skeleton-description{
+      margin: 10px 0;
+  }
+
+
+  .card-link, .skeleton-link{
+      margin-top: 20px;
+  }
+
+
+  .card-skills , .skeleton-skills{
+      display: flex;
+      justify-content: space-between;
+  }
+
+  .skeleton-img{
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.skeleton-description span:nth-child(1){
+    display: block;
+    width: 210px;
+    height: 10px;
+    background-color: #94A3B8;
+}
+
+.skeleton-description span:nth-child(2){
+    display: block;
+    width: 150px;
+    height: 10px;
+    background-color: #94A3B8;
+    margin-top: 5px;
+}
+
+.skeleton-skills .skill{
+    width: 65px;
+    height: 12px;
+    background-color: #94A3B8;
+}
+
+.skeleton-link{
+    width: 75px;
+    height: 12px;
+    background-color: #94A3B8;
+}
+
+@keyframes pulse {
+    0% {
+        background-color: #94A3B8;
+    }
+
+    50% {
+        background-color: #CBD5E1;
+    }
+
+    100% {
+        background-color: #94A3B8;
+    }
+}
+
+.skeleton-title{
+    width: 150px;
+    height: 12px;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.skeleton-img{
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.skeleton-description span:nth-child(1){
+    display: block;
+    width: 210px;
+    height: 10px;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.skeleton-description span:nth-child(2){
+    display: block;
+    width: 150px;
+    height: 10px;
+    animation: pulse 2s infinite ease-in-out;
+    margin-top: 5px;
+}
+
+.skeleton-skills .skill{
+    width: 65px;
+    height: 12px;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.skeleton-link{
+    width: 75px;
+    height: 12px;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+ul li {
+    list-style-type: none;
+}

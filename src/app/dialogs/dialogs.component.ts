@@ -1,6 +1,8 @@
 import { Component, Inject, ViewChild, ViewContainerRef, ComponentRef, ComponentFactoryResolver, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CoursesDialogComponent, LoaderDialogComponent, BasicDialogComponent } from './dialogsIndex';
+import { LoaderDialogComponent } from '../dialogs/loader-dialog/loader-dialog.component';
+import { BasicDialogComponent } from './basic-dialog/basic-dialog.component';
+import { CoursesDialogComponent } from './courses-dialog/courses-dialog.component';
 
 @Component({
   selector: 'notebook-dialog',

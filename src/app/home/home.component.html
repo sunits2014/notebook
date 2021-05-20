@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container h-100">
     <h1>
         Hello
         <b>{{user.name}},</b>
@@ -6,15 +6,26 @@
     <div class="row d-flex">
         <div class="row w-100 d-flex align-items-center justify-content-center flex-basis-80">
             <h3>Your Enrolled Courses:</h3>
-            <ul *ngIf="userEnrolledCourses.length > 0">
-                <li *ngFor="let course of userEnrolledCourses">
-                    {{course}}
+            <ul *ngIf="!dataLoading && userEnrolledCourses.length > 0" class="courses d-flex flex-wrap">
+                <li *ngFor="let course of userEnrolledCourses" class="m-4">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="..." alt="Card image cap">
+                        <div class="card-body">
+                          <h2 class="card-title">{{course}}</h2>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                      </div>
                 </li>
             </ul>
-            <div *ngIf="userEnrolledCourses.length === 0" [ngClass]="{'min-height-40': userEnrolledCourses.length === 0}" class="row p-4 ng-star-inserted h-75 w-25 d-flex align-items-center justify-content-center flex-column">
-                <h4 class="d-flex align-items-center justify-content-center">No courses were found.</h4>
-                <button type="button" mat-raised-button (click)="showCourses()">Enroll Here</button>
+            <div *ngIf="!dataLoading && userEnrolledCourses.length === 0" class="row p-4 ng-star-inserted d-flex align-items-center justify-content-center flex-column">
+                <img class="p-2 w-50 mb-4" src="../../assets/images/no-data.svg">
+                <h2 class="d-flex align-items-center justify-content-center">No courses were found.</h2>
+                <div class="d-flex justify-content-center">
+                    <button type="button" mat-raised-button (click)="showCourses()">Enroll Here</button>
+                </div>
             </div>
+            <app-skeleton-loader *ngIf="dataLoading"></app-skeleton-loader>
         </div>
         <div class="row flex-basis-20">
             <h3>Who liked what?</h3>

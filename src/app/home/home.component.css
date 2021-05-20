@@ -10,3 +10,11 @@
     min-height: 40 vh !important;
     height: 40vh !important;
 }
+
+ul li {
+    list-style-type: none;
+}
+
+.courses {
+    background-color: #eee;
+}
