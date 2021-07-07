@@ -18,3 +18,15 @@ ul li {
 .courses {
     background-color: #eee;
 }
+
+.h1 {
+    font-size: 2.5rem !important;
+    color: #666;
+    background-color: rgba(255,255,255,0.5);
+    min-width: 5rem;
+    min-height: 5rem;
+}
+
+.h-15 {
+    height: 15vh;
+}

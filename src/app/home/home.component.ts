@@ -15,8 +15,10 @@ export class HomeComponent implements OnInit {
   public courses: Array<any>;
   public userEnrolledCourses: Array<any>;
   public dataLoading: boolean;
-
   public inPageLoader: boolean;
+
+  private coursesCollection: Array<any>;
+  private colors: Array<string>
 
   constructor(private activeRoute: ActivatedRoute, private utilitiesService: UtilitiesService, private generalService: GeneralService) {
     this.user = {} as IUser;
@@ -25,7 +27,16 @@ export class HomeComponent implements OnInit {
     this.userEnrolledCourses = [];
     this.generalService.coursesUpdated.subscribe(data => {
       this.dataLoading = true;
-    })
+    });
+    this.coursesCollection = [];
+    this.colors = [
+      "#ff1493",
+      "#fc1cad",
+      "#c1fd33",
+      "#f69e94",
+      "#2b8a6d",
+      "#fec42e",
+    ];
    }
 
   ngOnInit(): void {
@@ -41,8 +52,17 @@ export class HomeComponent implements OnInit {
   }
 
   private populateUserEnrolledCourses() {
-    this.activeRoute.snapshot.data.images.user.enrolledCourses.length > 0 ? this.userEnrolledCourses = this.activeRoute.snapshot.data.images.user.enrolledCourses : this.userEnrolledCourses = [];
+    this.activeRoute.snapshot.data.images.user.enrolledCourses.length > 0 ? this.coursesCollection = this.activeRoute.snapshot.data.images.user.enrolledCourses : this.coursesCollection = [];
     this.dataLoading = false;
+    if (this.coursesCollection.length > 0) {
+      this.coursesCollection.forEach(item => {
+        this.userEnrolledCourses.push({
+          name: item,
+          header: item.match(/\b(\w)/g).join(''),
+          color: this.colors[Math.floor(Math.random() * this.colors.length)]
+        })
+      })
+    }
   }
 
 }
